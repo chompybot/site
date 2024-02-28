@@ -1,0 +1,151 @@
+body {
+        background: #1D1E18 ;
+
+	color: #fff ;
+        margin-bottom: 200px ;
+        font-family: "Garamond", Georgia, serif, 'Noto Color Emoji', 'Apple Color Emoji', 'Segoe UI Emoji';
+  user-select:none
+}
+
+
+img {
+border: 10px solid #333;
+  transition-duration: 100ms;
+  border-radius: 5px;
+  position:center;
+}
+img:hover {
+  transform: scale(1.1);
+  
+}
+
+
+h1 { color: #6B8F71 ; }
+h2 { color: #AAD2BA ; }
+h3 { color: #D9FFF5 ; }
+a  { color: #AAD2BA ; }
+
+
+h1,h2,h3, li,div{
+  text-align: center ;
+}
+
+
+b {
+  border: 10px solid #333;
+  transition-duration: 100ms;
+  border-radius: 5px;
+  right: 50% ;
+  width: 50% ;
+  position: relative ;
+  left: 50% ;
+  
+}
+
+b:hover{
+  transform: scale(1.1);
+}
+
+b:active{
+transform: scale (1.1)
+right: 0% ;  
+}
+
+#back img {
+  border: 10px solid #671818;
+  width: 15%;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Center the image horizontally within the container */
+}
+#bback {
+   border: 10px solid #671818;
+}
+
+
+audio {
+  display: block;
+  margin: 0 auto; /* Center the audio element horizontally within the container */
+}
+
+
+
+
+li {
+width: 50%;
+right: 50% ;
+text-align: center;
+position: center;
+ margin: 0 auto;
+  transition-duration: 100ms;
+}
+
+.music {
+  width: 5%;  
+}
+
+li:hover {
+  transform: scale(1.2);
+  cursor: pointer;
+}
+li:active {
+  transform:scale(0.9);
+}
+
+
+.fk:hover {
+        box-shadow: -1vmax 1vmax 0vmax;
+        transform: scale(.5);
+        border: 0.5vmax);
+        background-color: transparent;
+        justify-content: center;
+        left: -4%;
+        transition-duration: 200ms;
+        border-radius: 25%;
+        overflow-x:hidden;
+        transform: translateX(5%);
+    }
+
+
+
+.pl {
+  list-style-type: none;
+  padding: 10;
+  margin: 0;
+}
+
+.pl li {
+  margin-bottom: 10px;
+  border: 10px solid #333;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.pl li a {
+  text-decoration: none;
+  color: #B9F5D8;
+}
+
+form {
+  text-align: center;
+  border: 10px solid #333;
+  transition-duration: 100ms;
+  border-radius: 5px;
+}
+
+
+audio {
+  display: none;
+}
+
+button {
+  border: 10px solid #333;
+    margin: 0;
+}
+
+
+
+.group {
+  width: 100%;
+  text-align: center; /* Optional - To center align the content */
+}
