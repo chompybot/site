@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+  <title>Josiah's site</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="icon" href="pages/gallery/image21.jpg" type="image/png">
+</head>
+<h1 id="header">Josiah's site</h1>
+
+<div id="gallery">
+<img src="pages/gallery/portraits/image15.jpg">
+</div>
+<!--
+
+
+<div id="all-gallery">
+<div id="portait-gallery-container">
+<img src="pages/gallery/LeftAr.png" id="portrait-prev-arrow" class="arrow">
+<img id="portrait-img" src="pages/gallery/portraits/image15.jpg">
+<img src="pages/gallery/RightAr.png" id="portrait-next-arrow" class="arrow">
+</div>
+
+<div id="landscape-gallery-container">
+<img src="pages/gallery/LeftAr.png" id="landscape-prev-arrow" class="arrow">
+<img id="landscape-img" src="pages/gallery/landscapes/image51.jpg">
+<img src="pages/gallery/RightAr.png" id="landscape-next-arrow" class="arrow">
+</div>
+</div>
+
+-->
+<style>
+img {
+border-radius: 10px solid #333;
+border: 1px solid #333;
+  padding: 5px;
+  width: 150px;
+  position: center;
+  text-align: center;
+  height: 15%;
+
+right: 50% ;
+left: 50% ;
+
+}
+#gallery {
+display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+
+}
+#all-gallery {
+display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center;
+}
+.arrow {
+width: 10%;
+
+}
+</style>
+
+  <h3>I'm Josiah, An Orthodox Christian, Arch linux user, and aspiring programmer</h3>
+  <h2></h2>
+<h3>Page index</h3>
+<fk class=pl>
+<!-- <li onclick="window.location.href = 'pages/articlehub.html'"><a href="pages/articlehub.html">Articles</a></li> -->
+  <li onclick="window.location.href = 'pages/links.html'"><a href="pages/links.html">Links</a></li>
+  <li onclick="window.location.href = 'pages/gallery.html'"><a href="pages/gallery.html">My photo gallery</a></li>
+<!--  <li onclick="window.location.href = 'pages/music.html'"><a href="pages/music.html">Audios</a></li>
+  <li onclick="window.location.href = 'pages/guestbook.html'"><a href="pages/guestbook.html">Guestbook</a></li>
+-->
+	</fk>
+   <!-- <h3> Donate xmr:</h3>
+   --> <h3><a href="pages/rss.xml">rss feed</a></h3>
+       <h3> xmr: 41v7iBnYj7aTtguCuF4hLKJaCQG7ycrLxckVoPmrhgtaWCFs3wMJSSDKuTZHnxnACN1niEMk8vUtC6jTPyZzxh9jHibsHPK</h3>
+</html>
+
+    <h2>Email: josiah@josiahwarnock.com</h2>
+
+<script>
+const portraitImages = [];
+for (let i = 1; i <= 24; i++) {
+    portraitImages.push(`pages/gallery/portraits/image${i}.jpg`);
+}
+
+
+const landscapeImages = [];
+for (let i = 1; i <= 24; i++) {
+    landscapeImages.push(`pages/gallery/landscapes/image${i}.jpg`);
+}
+
+
+
+
+let portraitIndex = 0;
+let landscapeIndex = 0;
+
+document.getElementById('portrait-prev-arrow').addEventListener('click', function() {
+    portraitIndex = (portraitIndex === 0) ? portraitImages.length - 1 : portraitIndex - 1;
+    document.getElementById('portrait-img').src = portraitImages[portraitIndex];
+});
+
+document.getElementById('portrait-next-arrow').addEventListener('click', function() {
+    portraitIndex = (portraitIndex === portraitImages.length - 1) ? 0 : portraitIndex + 1;
+    document.getElementById('portrait-img').src = portraitImages[portraitIndex];
+});
+
+document.getElementById('landscape-prev-arrow').addEventListener('click', function() {
+    landscapeIndex = (landscapeIndex === 0) ? landscapeImages.length - 1 : landscapeIndex - 1;
+    document.getElementById('landscape-img').src = landscapeImages[landscapeIndex];
+});
+
+document.getElementById('landscape-next-arrow').addEventListener('click', function() {
+    landscapeIndex = (landscapeIndex === landscapeImages.length - 1) ? 0 : landscapeIndex + 1;
+    document.getElementById('landscape-img').src = landscapeImages[landscapeIndex];
+});
+</script>
