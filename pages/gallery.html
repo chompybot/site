@@ -45,8 +45,8 @@
 
 <h1>Gallery</h1>
 
-  <h2>Chose between several galleries of my taken, collected or created images.</h2>
-
+  <h2>A collection of my favorite portraits and landscapes I've taken. Page might/will be slow</h2>
+  <h3> Please excuse the absurdity of some portraits </h3>
   <!-- Portaits description
   <h3>Most of these are intentionally goofy or real damn ugly</h3>
   <h2>Photos are ordered latest to earliest</h2>
@@ -76,11 +76,28 @@
 
      // change this variable to add images
      var loopAmm = 24;
-const gallerychoice = "portraits"
      for (let i = loopAmm; i > 0; i--) {
-       newImg("gallery/" + gallerychoice + "/image" + i + ".jpg");
+       newImg("gallery/portraits/image" + i + ".jpg");
      }
    </script>
+
+<script>
+     function newImg(dir) {
+       const elm = document.createElement('img');
+       elm.src = dir;
+       document.getElementById("gallery").append(elm);
+       elm.addEventListener("click", () => openModal(dir));
+     }
+
+     // change this variable to add images
+     var loopAmm = 57;
+     for (let i = loopAmm; i > 0; i--) {
+       newImg("gallery/landscapes/image" + i + ".jpg");
+     }
+   </script>
+
+
+
 
 
     <div id="modal">
