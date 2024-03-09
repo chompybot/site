@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Fooder</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nova+Square&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/102/three.js"></script>
+ <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+  <script src="http://sole.github.io/tween.js/build/tween.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/18.6.4/tween.min.js"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tween.js/23.1.1/tween.umd.js"></script>
+
+
+<script>
+
+  var audio = new Audio('audio/mainTheme.wav');
+
+  // Wait for 3 seconds before playing the audio
+  setTimeout(function() {
+      // Play the audio
+      audio.loop = true; // Set the audio to loop
+      audio.play();
+  }, 10000);
+</script>
+
+
+  <style>
+      body {
+          margin: 0;
+          display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      canvas {
+          display: block;
+      }
+  </style>
+
+
+
+  <div id="food-eaten" style="position: absolute; top: 0; right: 0; padding: 10px; background-color: #000; color: #fff;font-family: 'Nova Square', sans-serif;">
+    Food Eaten: <span id="food-eaten-count">0</span>
+  </div>
+  <script>
+    var foodEaten = 0;
+    function updateFoodEatenCount() {
+      document.getElementById("food-eaten-count").innerHTML = foodEaten;
+    }
+    function eatFood() {
+      foodEaten++;
+      updateFoodEatenCount();
+    }
+    function loseFood() {
+      foodEaten--
+      updateFoodEatenCount()
+    }
+  </script>
+  <div id="help" style="position: absolute; top: 5%; right: 0; padding: 10px; background-color: #000; color: #fff; cursor: pointer;font-family: 'Nova Square', sans-serif;">
+   press H for Help
+  </div>
+  <div id="bullets" style="position: absolute; top: 10%; right: 0; padding: 10px; background-color: #000; color: #fff;font-family: 'Nova Square', sans-serif;">
+     <span id="bullets-count">0</span> litres of bullets
+  </div>
+
+
+
+
+  <div id="popup-menu" style='display: none; position: absolute; top: 20%; right: 20%; padding: 10px; background-color: #fff; color: #000; border: 1px solid #000;font-family: "Nova Square", sans-serif; font-weight: 400;
+    font-style: normal;''>
+       <h2>Instructions:</h2>
+       <p>WASD to move</p>
+       <p>Left arrow & right arrow to turn</p>
+       <p>SPACE to dash, costs one food to dash.</p>
+       <p>N to SUPER dash, costs four food to super dash.</p>
+       <p>E to eat (Make sure not to eat when not pointed toward a food!)</p>
+       <p>F to shoot a bullet !WARNING! bullets tend to rapture! You need to raise up and eat blocks to get bullets</p>
+       <p>B to place a block at cursor, hold to chose its location and use up and down arrows to raise or lower it. One block costs one food</p>
+       <p>Goal of the game is to defeat Jack. Collect food so you can shoot at jack and make a structure.</p>
+       <p>Jack is mostly harmless but he NEEDS to be stopped. Please kill him. He tends to throw baked beans at you. Please shoot jack.</p>
+       <p>Z to go to the title screen.</p>
+  </div>
+
+
+
+  <div id="win-message" style='display: none; position: absolute; top: 20%; right: 20%; padding: 10px; background-color: #fff; color: #000; border: 1px solid #000;font-family: "Nova Square", sans-serif; font-weight: 400;
+    font-style: normal;''>
+       <h2>You Won!</h2>
+       <p>congratulations, you defeated Jack.</p>
+       <p>You won the game.</p>
+       <p>Restart the game or go outside.</p>
+  </div>
+
+
+  <div id="jackBar" style='
+      position: fixed;
+      background-color: rgba(0, 255, 0, 0.8); /* Green with transparency */
+      width: 80%;
+      height: 5%;
+      top: 5%;
+      display: flex;
+      justify-content: center;
+      font-family: "Nova Square", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 0 20px 10px rgba(0, 255, 0, 0.8); /* Increased green glow */
+  '>
+      <span style="position: absolute; top: -50%; color: rgba(255, 255, 255, 0.8); font-size: 2vmax; text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);">JACK</span>
+      <div id="health" style="
+          background-color: rgba(0, 255, 0, 0.8); /* Green with transparency */
+          width: 100%;
+          height: 100%;
+          border-radius: 10px; /* Rounded corners */
+          box-shadow: 0 0 20px rgba(0, 255, 0, 0.8); /* Increased green glow */
+      "></div>
+  </div>
+
+
+
+  </div>
+
+  <script>
+    document.addEventListener('keydown', function(event) {
+      // Check if the pressed key is "Z"
+      if (event.key === 'z' || event.key === 'Z') {
+        // Redirect to the home screen
+        window.location.href = 'index.html';
+      }
+    });
+    /*
+    const title = document.getElementById('title');
+
+    // Add click event listener to the help div
+    title.addEventListener('click', function() {
+      // Redirect to "title.html" when the help div is clicked
+      window.location.href = 'title.html';
+    });
+*/
+
+    const pissDmg = 0.5
+    function damageJack() {
+      if(jack.health > 0) {
+        jack.health -= pissDmg
+        document.getElementById("health").style.width = jack.health.toString() + "%"
+      }
+    }
+  </script>
+
+
+  <script>
+
+    // Function to toggle the visibility of the pop-up menu
+        function togglePopupMenu() {
+            var popupMenu = document.getElementById('popup-menu');
+            if (popupMenu.style.display === 'none' || popupMenu.style.display === '') {
+                popupMenu.style.display = 'block';
+            } else {
+                popupMenu.style.display = 'none';
+            }
+        }
+
+        // Event listener for the key press event
+        document.addEventListener('keydown', function(event) {
+            // Check if the pressed key is 'H' or 'h'
+            if (event.key === 'H' || event.key === 'h') {
+                // Toggle the visibility of the pop-up menu
+                togglePopupMenu();
+            }
+        });
+
+
+
+
+    var bullets = 0;
+    function updateGetBulletsCount() {
+      document.getElementById("bullets-count").innerHTML = bullets;
+    }
+    function getBullets() {
+      bullets++;
+      updateGetBulletsCount();
+    }
+    function loseBullets() {
+      bullets--
+      updateGetBulletsCount()
+    }
+  </script>
+
+  <div id="cursor"></div>
+
+  <!-- threejs setup -->
+  <script>
+
+
+
+
+
+      var scene = new THREE.Scene()
+      var cam = new THREE.PerspectiveCamera(
+          75,
+          window.innerWidth / window.innerHeight,
+          0.1,
+          1000
+      )
+
+      cam.position.z = 5
+      var renderer = new THREE.WebGLRenderer({ antialias: true })
+      renderer.setClearColor("#e5e5e5")
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      document.body.appendChild(renderer.domElement)
+      window.addEventListener('resize', () => {
+          renderer.setSize(window.innerWidth, window.innerHeight)
+          cam.aspect = window.innerWidth / window.innerHeight
+          cam.updateProjectionMatrix()
+      })
+
+      var clock = new THREE.Clock()
+      var raycaster = new THREE.Raycaster()
+      var mouse = new THREE.Vector2()
+
+      var cameraGeo = new THREE.BoxGeometry(1, 1, 1)
+      var cameraMat = new THREE.MeshLambertMaterial({ color: "#000" })
+      var cameraMesh = new THREE.Mesh(cameraGeo, cameraMat)
+      scene.add(cameraMesh)
+      cameraMesh.position.set(cam.position.x, cam.position.y, cam.position.z)
+
+      var light = new THREE.PointLight(0xFFFFFF, 100, 500)
+      light.position.set(0, 0, 5)
+      light.castShadow = true
+      scene.add(light)
+
+    light.castShadow = true;
+
+    var materials = []
+      var textureLoader = new THREE.TextureLoader();
+      var textures = [
+          textureLoader.load('food.jpeg'),
+        textureLoader.load('food.jpeg'),
+        textureLoader.load('food.jpeg'),
+        textureLoader.load('food.jpeg'),
+        textureLoader.load('food.jpeg'),
+        textureLoader.load('food.jpeg')
+      ];
+
+      // Create materials for each face using the textures
+      for (var i = 0; i < 6; i++) {
+          materials.push(new THREE.MeshBasicMaterial({ map: textures[i] }));
+      }
+
+      var geo = new THREE.BoxGeometry(2, 2, 2)
+      var mat = new THREE.MeshLambertMaterial({ color: '#000' })
+      var mesh = new THREE.Mesh(geo, materials)
+      mesh.name = "mesh";
+      scene.add(mesh)
+
+    var materials = []
+      var textures = [
+          textureLoader.load('fancy.png'),
+        textureLoader.load('fancy.png'),
+        textureLoader.load('fancy.png'),
+        textureLoader.load('fancy.png'),
+        textureLoader.load('fancy.png'),
+        textureLoader.load('fancy.png')
+      ];
+
+
+
+
+      // Create materials for each face using the textures
+      for (var i = 0; i < 6; i++) {
+          materials.push(new THREE.MeshBasicMaterial({ map: textures[i] }));
+      }
+
+
+      var geo = new THREE.BoxGeometry(500, 2, 500)
+      var mat = new THREE.MeshLambertMaterial({ color: '#000' })
+      var mesh1 = new THREE.Mesh(geo, materials)
+      //mesh.name = "mesh";
+      scene.add(mesh1)
+      mesh1.position.set(0, -3, 0)
+
+
+
+    var tweenArr = []
+      var render = () => {
+
+
+
+          requestAnimationFrame(render)
+          renderer.render(scene, cam)
+       // TWEEN.update()
+          for(let i = 0; i < tweenArr.length; i++) {
+            tweenArr[i].update()
+          }
+      }
+
+
+      render()
+
+
+
+
+    //var loader = new THREE.CubeTextureLoader();
+    //loader.setPath("picture/");
+
+    var img = textureLoader.load('gradient.png')
+    scene.background = img
+
+
+
+/*
+
+
+        const bodyGeometry = new THREE.BoxGeometry(2, 4, 1);
+        const bodyMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+        scene.add(body);
+
+        // Create legs (rectangular prisms)
+        const legGeometry = new THREE.BoxGeometry(0.5, 2, 0.5);
+        const legMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+
+        // Left leg
+        const leftLeg = new THREE.Mesh(legGeometry, legMaterial);
+        leftLeg.position.set(-0.75, -2, 0);
+        body.add(leftLeg);
+
+        // Right leg
+        const rightLeg = new THREE.Mesh(legGeometry, legMaterial);
+        rightLeg.position.set(0.75, -2, 0);
+        body.add(rightLeg);
+
+        // Animation parameters
+        const walkSpeed = 0.02;
+        let walkingDirection = 1; // 1 for forward, -1 for backward
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Move body forward or backward
+            body.position.x += walkSpeed * walkingDirection;
+
+            // Swing legs
+            leftLeg.rotation.x = Math.sin(Date.now() * 0.001) * 0.5;
+            rightLeg.rotation.x = -Math.sin(Date.now() * 0.001) * 0.5;
+
+            renderer.render(scene, camera);
+        }
+        animate();
+    */
+  </script>
+  <script>
+    var eatRange = 15
+    var objSel = false
+    // Find any threejs object in the scene
+    var objects = scene.children;
+
+    // Create a raycaster and set its origin and direction
+    var raycaster = new THREE.Raycaster();
+    raycaster.set(cam.position, cam.getWorldDirection());
+
+    // Create a function to check if the cam is intersecting with any object
+    var intersections
+    function checkIntersection() {
+      raycaster.set(cam.position, cam.getWorldDirection());
+      intersections = raycaster.intersectObjects(objects);
+
+      // If the ray intersects any object, call the eatFood() function
+      if (intersections.length > 0) {
+        var isObj = false
+        for(let i = 0; i < intersections.length; i++) {
+          if(intersections[i].distance < eatRange) {
+            document.getElementById("cursor").style.backgroundColor = "green"
+            objSel = true
+            isObj = true
+          }
+        }
+        if(!isObj) {
+          document.getElementById("cursor").style.backgroundColor = "red"
+          objSel = false
+        }
+      }
+    }
+
+    // Add an event listener for the "mousemove" event on the window
+
+    function animate1() {
+      requestAnimationFrame(animate1)
+      for(let i = 0; i < foodArr.length; i++) {
+
+        var hoverRange = 0.9; // Adjust as needed
+        var hoverSpeed = 0.001; // Adjust as needed
+
+        // Calculate the vertical position based on sine function
+        var verticalPosition = Math.sin(Date.now() * hoverSpeed) * hoverRange;
+
+        // Update the cube's position along the y-axis
+        foodArr[i].position.y = verticalPosition;
+        foodArr[i].rotation.x += .05;
+        foodArr[i].rotation.y -= .05;
+      }
+
+
+      checkIntersection()
+    }
+
+    animate1()
+
+
+
+
+
+
+
+
+
+
+  </script>
+  <script src="controls.js"></script>
+  <script src="generate.js"></script>
+  <script src="collision.js"></script>
+  <script src="jack.js"></script>
+  <img src="./image5.jpg" id="josiah">
+  <div id="whiteBang"></div>
+  <img src="./jdw.webp" id="flashPhoto">
+</body>
+
+</html>
